@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/version.mk
 
-PKG_NAME:=ipq-wifi
+PKG_NAME:=ath10k-usb-wifi
 PKG_RELEASE:=1
 
 include $(INCLUDE_DIR)/package.mk
@@ -13,44 +13,41 @@ endef
 define Build/Compile
 endef
 
-ALLWIFIBOARDS:=8dev_jalapeno asus_rt-ac58u avm_fritzbox-4040 glinet_gl-b1300 meraki_mr33
-ALLWIFIPACKAGES:=$(foreach BOARD,$(ALLWIFIBOARDS),ipq-wifi-$(BOARD))
+ALLUSBOARDS:=
+ALLUSBPACKAGES:=$(foreach BOARD,$(ALLUSBOARDS),ath10k-usb-wifi-$(BOARD))
 
-define Package/ipq-wifi-default
-  SUBMENU:=ath10k IPQ4019 Boarddata
+define Package/ath10k-usb-wifi-default
+  SUBMENU:=ath10k USB firmware and board data
   SECTION:=firmware
   CATEGORY:=Firmware
-  DEPENDS:=@TARGET_ipq40xx +ath10k-firmware-qca4019
+  DEPENDS:=kmod-ath10k
   TITLE:=Custom Board
 endef
 
-define generate-ipq-wifi-package
-  define Package/ipq-wifi-$(1)
-    $(call Package/ipq-wifi-default)
-    TITLE:=Board for $(3)
+define generate-ath10k-usb-wifi-package
+  define Package/ath10k-usb-wifi-$(1)
+    $(call Package/ath10k-usb-wifi-default)
+    TITLE:=Board for $(4)
     CONFLICTS:=$(PREV_BOARD)
   endef
 
-  define Package/ipq-wifi-$(1)/description
+  define Package/ath10k-usb-wifi-$(1)/description
 This device custom package board-2.bin overwrites the board-2.bin
 file which is supplied by the ath10k-firmware-qca4019 package.
 
-This is package is only necessary for the $(3).
+This is package is only necessary for the $(4).
 Don't install it for any other device!
   endef
 
-  define Package/ipq-wifi-$(1)/install-overlay
-	$(INSTALL_DIR) $$(1)/lib/firmware/ath10k/QCA4019/hw1.0
-	$(INSTALL_DATA) ./$(2) $$(1)/lib/firmware/ath10k/QCA4019/hw1.0/board-2.bin
+  define Package/ath10k-usb-wifi-$(1)/install-overlay
+	$(INSTALL_DIR) $$(1)/lib/firmware/ath10k/QCA9377/hw1.0
+	$(INSTALL_DATA) ./$(2) $$(1)/lib/firmware/ath10k/QCA9377/hw1.0/board-usb.bin
+	$(INSTALL_DATA) ./$(3) $$(1)/lib/firmware/ath10k/QCA9377/hw1.0/firmware-usb-5.bin
   endef
 
-  PREV_BOARD+=ipq-wifi-$(1)
+  PREV_BOARD+=ath10k-usb-wifi-$(1)
 endef
 
-$(eval $(call generate-ipq-wifi-package,8dev_jalapeno,board-8dev_jalapeno.bin,8devices Jalapeno))
-$(eval $(call generate-ipq-wifi-package,asus_rt-ac58u,board-asus_rt-ac58u.bin,ASUS RT-AC58U))
-$(eval $(call generate-ipq-wifi-package,avm_fritzbox-4040,board-avm_fritzbox-4040.bin,AVM FRITZ!Box 4040))
-$(eval $(call generate-ipq-wifi-package,glinet_gl-b1300,board-glinet_gl-b1300.bin,GL.iNet GL-B1300))
-$(eval $(call generate-ipq-wifi-package,meraki_mr33,board-meraki_mr33.bin,Cisco Meraki MR33))
+$(eval $(call generate-ath10k-usb-wifi-package,Netgear_WUSB6100M,board-Netgear_WUSB6100M.bin,firmware-Netgear_WUSB6100M.bin,Netgear WUSB6100M))
 
-$(foreach PACKAGE,$(ALLWIFIPACKAGES),$(eval $(call BuildPackage,$(PACKAGE))))
+$(foreach PACKAGE,$(ALLUSBPACKAGES),$(eval $(call BuildPackage,$(PACKAGE))))
