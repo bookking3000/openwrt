@@ -13,8 +13,8 @@ endef
 define Build/Compile
 endef
 
-ALLWIFIBOARDS:=Netgear_WUSB6100M
-ALLWIFIPACKAGES:=$(foreach BOARD,$(ALLWIFIBOARDS),ath10k-usb-wifi-$(BOARD))
+ALLUSBBOARDS:=Netgear_WUSB6100M
+ALLUSBPACKAGES:=$(foreach BOARD,$(ALLUSBBOARDS),ath10k-usb-wifi-$(BOARD))
 
 define Package/ath10k-usb-wifi-default
   SUBMENU:=ath10k USB Boarddata
@@ -50,4 +50,4 @@ endef
 
 $(eval $(call generate-ath10k-usb-wifi-package,Netgear_WUSB6100M,board-Netgear_WUSB6100M.bin,firmware-Netgear_WUSB6100M.bin,Netgear WUSB6100M))
 
-$(foreach PACKAGE,$(ALLWIFIPACKAGES),$(eval $(call BuildPackage,$(PACKAGE))))
+$(foreach PACKAGE,$(ALLUSBPACKAGES),$(eval $(call BuildPackage,$(PACKAGE))))
