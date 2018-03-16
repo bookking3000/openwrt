@@ -42,7 +42,7 @@ Don't install it for any other device!
   define Package/ath10k-usb-wifi-$(1)/install-overlay
 	$(INSTALL_DIR) $$(1)/lib/firmware/ath10k/QCA9337/hw1.0
 	$(INSTALL_DATA) ./$(2) $$(1)/lib/firmware/ath10k/QCA9377/hw1.0/board-usb.bin
-  	$(INSTALL_DATA) ./$(3) $$(1)/lib/firmware/ath10k/QCA9377/hw1.0/firmware-5.bin
+	$(INSTALL_DATA) ./$(3) $$(1)/lib/firmware/ath10k/QCA9377/hw1.0/firmware-5.bin
   endef
 
   PREV_BOARD+=ath10k-usb-wifi-$(1)
