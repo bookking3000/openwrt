@@ -32,8 +32,8 @@ define generate-ath10k-usb-wifi-package
   endef
 
   define Package/ath10k-usb-wifi-$(1)/description
-This device custom package board-2.bin overwrites the board-2.bin
-file which is supplied by the ath10k-firmware-qca4019 package.
+This device custom package provides firmware and board data
+files to support ath10k USB devices.
 
 This is package is only necessary for the $(4).
 Don't install it for any other device!
