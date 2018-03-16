@@ -13,11 +13,11 @@ endef
 define Build/Compile
 endef
 
-ALLUSBOARDS:=
+ALLUSBOARDS:=Netgear_WUSB6100M
 ALLUSBPACKAGES:=$(foreach BOARD,$(ALLUSBOARDS),ath10k-usb-wifi-$(BOARD))
 
 define Package/ath10k-usb-wifi-default
-  SUBMENU:=ath10k USB
+  SUBMENU:=ath10k USB firmware and board data
   SECTION:=firmware
   CATEGORY:=Firmware
   DEPENDS:=kmod-ath10k
