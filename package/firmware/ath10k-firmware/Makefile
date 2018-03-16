@@ -8,9 +8,9 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=ath10k-firmware
-PKG_SOURCE_DATE:=2018-02-09
-PKG_SOURCE_VERSION:=8f4bafdd400d21a65966004d0ce6e0686ef4d9bc
-PKG_MIRROR_HASH:=4f4f0678b9d07c0282f18c69bd63a5e2a2ae015b9ce7298cedb88a60be87ed3a
+PKG_SOURCE_DATE:=2018-03-16
+PKG_SOURCE_VERSION:=bd67dd3904ab2222b3d8dcfa1b71b9f142c3a620
+PKG_MIRROR_HASH:=55cce129f5133254bd3aaab15adceff6864583f8bfa8e0616e085b57d7596656
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
@@ -202,6 +202,13 @@ $(Package/ath10k-firmware-default)
   CATEGORY:=Firmware
 endef
 
+define Package/ath10k-firmware-qca9337
+$(Package/ath10k-firmware-default)
+  TITLE:=ath10k firmware for QCA9377 devices
+  SECTION:=firmware
+  CATEGORY:=Firmware
+endef
+
 QCA99X0_BOARD_REV:=ddcec9efd245da9365c474f513a855a55f3ac7fe
 QCA99X0_BOARD_FILE:=board-2.bin.$(QCA99X0_BOARD_REV)
 
@@ -225,6 +232,19 @@ define Package/ath10k-firmware-qca4019/install
 	$(INSTALL_DATA) \
 		$(PKG_BUILD_DIR)/QCA4019/hw1.0/3.4/firmware-5.bin_10.4-3.4-00104 \
 		$(1)/lib/firmware/ath10k/QCA4019/hw1.0/firmware-5.bin
+endef
+
+define Package/ath10k-firmware-qca9337/install
+	$(INSTALL_DIR) $(1)/lib/firmware/ath10k/QCA9377/hw1.0
+	$(INSTALL_DATA) \
+		$(PKG_BUILD_DIR)/QCA9377/hw1.0/WLAN.TF.2.1/firmware-6.bin_WLAN.TF.2.1-00014-QCARMSWP-1 \
+		$(1)/lib/firmware/ath10k/QCA9377/hw1.0/firmware-6.bin
+	$(INSTALL_DATA) \
+		$(PKG_BUILD_DIR)/QCA9377/hw1.0/board.bin \
+		$(1)/lib/firmware/ath10k/QCA9377/hw1.0/board.bin
+	$(INSTALL_DATA) \
+		$(PKG_BUILD_DIR)/QCA9377/hw1.0/board-2.bin \
+		$(1)/lib/firmware/ath10k/QCA9377/hw1.0/board-2.bin
 endef
 
 define Package/ath10k-firmware-qca9887/install
@@ -348,6 +368,7 @@ $(eval $(call BuildPackage,ath10k-firmware-qca99x0))
 $(eval $(call BuildPackage,ath10k-firmware-qca6174))
 $(eval $(call BuildPackage,ath10k-firmware-qca9984))
 $(eval $(call BuildPackage,ath10k-firmware-qca4019))
+$(eval $(call BuildPackage,ath10k-firmware-qca9337))
 
 $(eval $(call BuildPackage,ath10k-firmware-qca9887-ct))
 $(eval $(call BuildPackage,ath10k-firmware-qca988x-ct))
