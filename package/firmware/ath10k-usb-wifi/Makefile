@@ -17,7 +17,7 @@ ALLUSBOARDS:=
 ALLUSBPACKAGES:=$(foreach BOARD,$(ALLUSBOARDS),ath10k-usb-wifi-$(BOARD))
 
 define Package/ath10k-usb-wifi-default
-  SUBMENU:=ath10k USB firmware and board data
+  SUBMENU:=ath10k USB
   SECTION:=firmware
   CATEGORY:=Firmware
   DEPENDS:=kmod-ath10k
