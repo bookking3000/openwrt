@@ -20,7 +20,7 @@ define Package/ath10k-usb-wifi-default
   SUBMENU:=ath10k USB firmware and board data
   SECTION:=firmware
   CATEGORY:=Firmware
-  DEPENDS:=kmod-ath10k
+  DEPENDS:=kmod-ath10k-usb
   TITLE:=Custom Board
 endef
 
