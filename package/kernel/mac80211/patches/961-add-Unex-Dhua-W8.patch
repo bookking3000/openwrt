@@ -1,14 +1,51 @@
-From d14dc2656fbae1038773ee9e455d4ee5dbb28988 Mon Sep 17 00:00:00 2001
+From 1027f8e1cd6fc490960a1281cd3b871eb091aec2 Mon Sep 17 00:00:00 2001
 From: Robert Marko <robimarko@gmail.com>
-Date: Tue, 3 Apr 2018 12:13:04 +0200
+Date: Tue, 3 Apr 2018 12:35:50 +0200
 Subject: [PATCH] ath10k: Add Unex Dhua-W8
 
-Add needed ID-s
+Add needed ID-s for QCA9378 in Dhua-W8
 ---
- drivers/net/wireless/ath/ath10k/hw.h  | 1 +
- drivers/net/wireless/ath/ath10k/usb.c | 1 +
- 2 files changed, 2 insertions(+)
+ drivers/net/wireless/ath/ath10k/core.c | 25 +++++++++++++++++++++++++
+ drivers/net/wireless/ath/ath10k/hw.h   |  1 +
+ drivers/net/wireless/ath/ath10k/usb.c  |  1 +
+ 3 files changed, 27 insertions(+)
 
+diff --git a/drivers/net/wireless/ath/ath10k/core.c b/drivers/net/wireless/ath/ath10k/core.c
+index b29fdbd..0d7704a 100644
+--- a/drivers/net/wireless/ath/ath10k/core.c
++++ b/drivers/net/wireless/ath/ath10k/core.c
+@@ -314,6 +314,31 @@ static const struct ath10k_hw_params ath10k_hw_params_list[] = {
+ 		.vht160_mcs_tx_highest = 0,
+ 		.n_cipher_suites = 8,
+ 	},
++	,
++	{
++		.id = QCA9377_HW_1_1_DEV_VERSION,
++		.dev_id = DHUA_W8_DEVICE_ID,
++		.bus = ATH10K_BUS_USB,
++		.name = "qca9378 hw1.1 Unex Dhua-W8",
++		.patch_load_addr = QCA9377_HW_1_0_PATCH_LOAD_ADDR,
++		.uart_pin = 6,
++		.otp_exe_param = 0,
++		.channel_counters_freq_hz = 88000,
++		.max_probe_resp_desc_thres = 0,
++		.cal_data_len = 8124,
++		.fw = {
++			.dir = QCA9377_HW_1_0_FW_DIR,
++			.board = QCA9377_HW_1_0_BOARD_DATA_FILE_USB,
++			.board_size = QCA9377_BOARD_DATA_SZ,
++			.board_ext_size = QCA9377_BOARD_EXT_DATA_SZ,
++		},
++		.hw_ops = &qca988x_ops,
++		.decap_align_bytes = 4,
++		.start_once = true,
++		.num_peers = TARGET_QCA9377_HL_NUM_PEERS,
++		.ast_skid_limit = 0x10,
++		.num_wds_entries = 0x20,
++	},
+ 	{
+ 		.id = QCA9377_HW_1_1_DEV_VERSION,
+ 		.dev_id = QCA9377_1_0_DEVICE_ID,
 diff --git a/drivers/net/wireless/ath/ath10k/hw.h b/drivers/net/wireless/ath/ath10k/hw.h
 index 70782a5..9828e68 100644
 --- a/drivers/net/wireless/ath/ath10k/hw.h
