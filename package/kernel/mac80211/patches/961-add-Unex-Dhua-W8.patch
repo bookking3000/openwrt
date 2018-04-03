@@ -1,27 +1,26 @@
-From dc87723b8b7a52275fe5912ae640c35a7be55dad Mon Sep 17 00:00:00 2001
+From fc5f646e5b80f1bfbd0fdb9a6ac53e9a7a6a0b8b Mon Sep 17 00:00:00 2001
 From: Robert Marko <robimarko@gmail.com>
-Date: Tue, 3 Apr 2018 12:46:13 +0200
+Date: Tue, 3 Apr 2018 12:58:52 +0200
 Subject: [PATCH] ath10k: Add Unex Dhua-W8
 
 Add needed ID-s for QCA9378 in Dhua-W8
 ---
- drivers/net/wireless/ath/ath10k/core.c | 24 ++++++++++++++++++++++++
+ drivers/net/wireless/ath/ath10k/core.c | 25 +++++++++++++++++++++++++
  drivers/net/wireless/ath/ath10k/hw.h   |  1 +
  drivers/net/wireless/ath/ath10k/usb.c  |  1 +
- 3 files changed, 26 insertions(+)
+ 3 files changed, 27 insertions(+)
 
 diff --git a/drivers/net/wireless/ath/ath10k/core.c b/drivers/net/wireless/ath/ath10k/core.c
-index b29fdbd..5134040 100644
+index b29fdbd..f6e8650 100644
 --- a/drivers/net/wireless/ath/ath10k/core.c
 +++ b/drivers/net/wireless/ath/ath10k/core.c
-@@ -314,6 +314,30 @@ static const struct ath10k_hw_params ath10k_hw_params_list[] = {
+@@ -314,6 +314,31 @@ static const struct ath10k_hw_params ath10k_hw_params_list[] = {
  		.vht160_mcs_tx_highest = 0,
  		.n_cipher_suites = 8,
  	},
 +	{
 +		.id = QCA9377_HW_1_1_DEV_VERSION,
 +		.dev_id = DHUA_W8_DEVICE_ID,
-+		.bus = ATH10K_BUS_USB,
 +		.name = "qca9378 hw1.1 Unex Dhua-W8",
 +		.patch_load_addr = QCA9377_HW_1_0_PATCH_LOAD_ADDR,
 +		.uart_pin = 6,
@@ -31,16 +30,18 @@ index b29fdbd..5134040 100644
 +		.cal_data_len = 8124,
 +		.fw = {
 +			.dir = QCA9377_HW_1_0_FW_DIR,
-+			.board = QCA9377_HW_1_0_BOARD_DATA_FILE_USB,
++			.board = QCA9377_HW_1_0_BOARD_DATA_FILE,
 +			.board_size = QCA9377_BOARD_DATA_SZ,
 +			.board_ext_size = QCA9377_BOARD_EXT_DATA_SZ,
 +		},
-+		.hw_ops = &qca988x_ops,
++		.hw_ops = &qca6174_ops,
++		.hw_clk = qca6174_clk,
++		.target_cpu_freq = 176000000,
 +		.decap_align_bytes = 4,
-+		.start_once = true,
-+		.num_peers = TARGET_QCA9377_HL_NUM_PEERS,
-+		.ast_skid_limit = 0x10,
-+		.num_wds_entries = 0x20,
++		.spectral_bin_discard = 0,
++		.vht160_mcs_rx_highest = 0,
++		.vht160_mcs_tx_highest = 0,
++		.n_cipher_suites = 8,
 +	},
  	{
  		.id = QCA9377_HW_1_1_DEV_VERSION,
