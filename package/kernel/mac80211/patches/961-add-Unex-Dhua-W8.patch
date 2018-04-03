@@ -1,0 +1,35 @@
+From d14dc2656fbae1038773ee9e455d4ee5dbb28988 Mon Sep 17 00:00:00 2001
+From: Robert Marko <robimarko@gmail.com>
+Date: Tue, 3 Apr 2018 12:13:04 +0200
+Subject: [PATCH] ath10k: Add Unex Dhua-W8
+
+Add needed ID-s
+---
+ drivers/net/wireless/ath/ath10k/hw.h  | 1 +
+ drivers/net/wireless/ath/ath10k/usb.c | 1 +
+ 2 files changed, 2 insertions(+)
+
+diff --git a/drivers/net/wireless/ath/ath10k/hw.h b/drivers/net/wireless/ath/ath10k/hw.h
+index 70782a5..9828e68 100644
+--- a/drivers/net/wireless/ath/ath10k/hw.h
++++ b/drivers/net/wireless/ath/ath10k/hw.h
+@@ -30,6 +30,7 @@
+ #define QCA9984_1_0_DEVICE_ID	(0x0046)
+ #define QCA9377_1_0_DEVICE_ID   (0x0042)
+ #define QCA9887_1_0_DEVICE_ID   (0x0050)
++#define DHUA_W8_DEVICE_ID	(0x9378)
+ 
+ /* QCA988X 1.0 definitions (unsupported) */
+ #define QCA988X_HW_1_0_CHIP_ID_REV	0x0
+diff --git a/drivers/net/wireless/ath/ath10k/usb.c b/drivers/net/wireless/ath/ath10k/usb.c
+index 267a7ff..7e876f8 100644
+--- a/drivers/net/wireless/ath/ath10k/usb.c
++++ b/drivers/net/wireless/ath/ath10k/usb.c
+@@ -1083,6 +1083,7 @@ static int ath10k_usb_pm_resume(struct usb_interface *interface)
+ /* table of devices that work with this driver */
+ static struct usb_device_id ath10k_usb_ids[] = {
+ 	{USB_DEVICE(0x13b1, 0x0042)}, /* Linksys WUSB6100M */
++	{USB_DEVICE(0x0cf3, 0x9378)}, /* Unex Dhua-W8 */
+ 	{ /* Terminating entry */ },
+ };
+ 
