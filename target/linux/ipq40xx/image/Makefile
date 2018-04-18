@@ -54,6 +54,17 @@ define Device/8dev_jalapeno
 endef
 TARGET_DEVICES += 8dev_jalapeno
 
+define Device/8dev_jalapeno_bme
+	$(call Device/FitImage)
+	$(call Device/UbiFit)
+	DEVICE_DTS := qcom-ipq4018-jalapeno-bme
+	BLOCKSIZE := 128k
+	PAGESIZE := 2048
+	DEVICE_TITLE := 8devices Jalapeno-BME
+	DEVICE_PACKAGES := ipq-wifi-8dev_jalapeno kmod-i2c-gpio-custom kmod-iio-bmp280-i2c
+endef
+TARGET_DEVICES += 8dev_jalapeno_bme
+
 define Device/asus_rt-ac58u
 	$(call Device/FitImageLzma)
 	DEVICE_DTS := qcom-ipq4018-rt-ac58u
