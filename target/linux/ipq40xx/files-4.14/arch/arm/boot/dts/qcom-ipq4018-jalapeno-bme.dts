@@ -121,12 +121,10 @@
 
 		i2c_gpio {
 			compatible = "i2c-gpio";
-			gpios = <&tlmm 0 GPIO_ACTIVE_HIGH /* sda */
-				 &tlmm 1 GPIO_ACTIVE_HIGH /* scl */
-				>;
+			gpios = <&tlmm 0 GPIO_ACTIVE_HIGH>, <&tlmm 1 GPIO_ACTIVE_HIGH>;
 			i2c-gpio,sda-open-drain;
 			i2c-gpio,scl-open-drain;
-			i2c-gpio,delay-us = <2>;	/* ~100 kHz */
+			i2c-gpio,delay-us = <2>; /* ~100 kHz */
 			#address-cells = <1>;
 			#size-cells = <0>;
 
