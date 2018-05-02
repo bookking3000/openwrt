@@ -119,10 +119,13 @@
 			status = "okay";
 		};
 
-		i2c@0 {
+		i2c_gpio {
 			compatible = "i2c-gpio";
-			sda-gpios = <&tlmm 0 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
-			scl-gpios = <&tlmm 1 (GPIO_ACTIVE_HIGH|GPIO_OPEN_DRAIN)>;
+			gpios = <&tlmm 0 GPIO_ACTIVE_HIGH /* sda */
+				 &tlmm 1 GPIO_ACTIVE_HIGH /* scl */
+				>;
+			i2c-gpio,sda-open-drain;
+			i2c-gpio,scl-open-drain;
 			i2c-gpio,delay-us = <2>;	/* ~100 kHz */
 			#address-cells = <1>;
 			#size-cells = <0>;
