@@ -338,6 +338,22 @@ Atheros IEEE 802.11ac family of chipsets. For now only
 PCI is supported.
 endef
 
+define KernelPackage/ath10k-usb
+  $(call KernelPackage/mac80211/Default)
+  TITLE:=Atheros QCA9377 USB wireless cards support
+  URL:=https://wireless.wiki.kernel.org/en/users/drivers/ath10k
+  DEPENDS+= @USB_SUPPORT +kmod-ath +kmod-ath10k +kmod-usb-core +@DRIVER_11N_SUPPORT +@DRIVER_11AC_SUPPORT +@DRIVER_11W_SUPPORT
+  FILES:= \
+	$(PKG_BUILD_DIR)/drivers/net/wireless/ath/ath10k/ath10k_usb.ko
+  AUTOLOAD:=$(call AutoProbe,ath10k_usb)
+endef
+
+define KernelPackage/ath10k-usb/description
+This module adds support for USB wireless adapters based on
+Atheros QCA9377 family of chipsets. Purely experimental
+and not guaranteed to work.
+endef
+
 #Broadcom firmware
 ifneq ($(CONFIG_B43_FW_6_30),)
   PKG_B43_FWV4_NAME:=broadcom-wl
@@ -1627,6 +1643,7 @@ config-$(CONFIG_ATH9K_UBNTHSR) += ATH9K_UBNTHSR
 
 config-$(call config_package,ath9k-htc) += ATH9K_HTC
 config-$(call config_package,ath10k) += ATH10K ATH10K_PCI
+config-$(call config_package,ath10k-usb) += ATH10K ATH10K_USB
 
 config-$(call config_package,ath5k) += ATH5K
 ifdef CONFIG_TARGET_ath25
@@ -1881,6 +1898,7 @@ $(eval $(call KernelPackage,adm8211))
 $(eval $(call KernelPackage,airo))
 $(eval $(call KernelPackage,ath))
 $(eval $(call KernelPackage,ath10k))
+$(eval $(call KernelPackage,ath10k-usb))
 $(eval $(call KernelPackage,ath5k))
 $(eval $(call KernelPackage,ath6kl))
 $(eval $(call KernelPackage,ath6kl-sdio))
