@@ -249,6 +249,7 @@ platform_check_image() {
 	e600g-v2|\
 	e600gac-v2|\
 	ebr-2310-c1|\
+	enh1750ext|\
 	ens202ext|\
 	epg5000|\
 	esr1750|\
@@ -256,6 +257,7 @@ platform_check_image() {
 	ew-balin|\
 	ew-dorin|\
 	ew-dorin-router|\
+	ews860ap|\
 	gl-ar150|\
 	gl-ar300m|\
 	gl-ar300|\
@@ -789,7 +791,9 @@ platform_do_upgrade() {
 		;;
 	cap4200ag|\
 	eap300v2|\
-	ens202ext)
+	enh1750ext|\
+	ens202ext|\
+	ews860ap)
 		platform_do_upgrade_allnet "0xbf0a0000" "$ARGV"
 		;;
 	dir-825-b1|\
