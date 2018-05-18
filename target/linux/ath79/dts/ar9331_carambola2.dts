@@ -1,0 +1,103 @@
+// SPDX-License-Identifier: GPL-2.0
+/dts-v1/;
+
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/input/input.h>
+
+#include "ar9331.dtsi"
+
+/ {
+	model = "8devices Carambola2";
+	compatible = "8dev,carambola2", "qca,ar9331";
+
+	aliases {
+		serial0 = &uart;
+	};
+
+	memory@0 {
+		device_type = "memory";
+		reg = <0x0 0x4000000>;
+	};
+
+	leds {
+		compatible = "gpio-leds";
+
+		wlan {
+			label = "carambola2:green:wlan";
+			gpios = <&gpio 0 GPIO_ACTIVE_LOW>;
+			default-state = "off";
+		};
+
+		lan {
+			label = "carambola2:orange:lan";
+			gpios = <&gpio 14 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+
+		wan {
+			label = "carambola2:orange:wan";
+			gpios = <&gpio 13 GPIO_ACTIVE_HIGH>;
+			default-state = "off";
+		};
+	};
+};
+
+&uart {
+	status = "okay";
+};
+
+&gpio {
+	status = "okay";
+};
+
+&usb {
+	dr_mode = "host";
+	status = "okay";
+};
+
+&usb_phy {
+	status = "okay";
+};
+
+&spi {
+	num-chipselects = <1>;
+	status = "okay";
+
+	/* Winbond 25Q1288VEG SPI flash */
+	spiflash: w25q128@0 {
+		#address-cells = <1>;
+		#size-cells = <1>;
+		compatible = "winbond,w25q128", "jedec,spi-nor";
+		spi-max-frequency = <104000000>;
+		reg = <0>;
+		
+		partitions {
+			compatible = "fixed-partitions";
+			#address-cells = <1>;
+			#size-cells = <1>;
+
+			partition@0 {
+				label = "u-boot";
+				reg = <0x000000 0x040000>;
+				read-only;
+			};
+
+			partition@1 {
+				label = "u-boot-env";
+				reg = <0x040000 0x010000>;
+			};
+
+			partition@2 {
+				label = "firmware";
+				reg = <0x050000 0xfa0000>;
+			};
+
+			art: partition@3 {
+				label = "ART";
+				reg = <0xff0000 0x010000>;
+				read-only;
+			};
+		};
+
+	};
+};
