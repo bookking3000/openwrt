@@ -27,6 +27,7 @@ define Device/8dev_carambola2
   DEVICE_TITLE := 8devices Carambola2
   DEVICE_PACKAGES := kmod-usb-chipidea2
   IMAGE_SIZE := 16000k
+  SUPPORTED_DEVICES += carambola2
 endef
 TARGET_DEVICES += 8dev_carambola2
 
